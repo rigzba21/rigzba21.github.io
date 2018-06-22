@@ -14,7 +14,7 @@ about.
 
 ### [This Site](https://rigzba21.github.io) and its Content
 
-This is my second attempt at setting up a blog post/website. I using [Jekyll](https://jekyllrb.com/) at the moment to generate my static site/content. I've experimented with other _Static Site Generators_ like [JBake](https://jbake.org/)
+This is my second iteration at setting up a blog post/website. I'm using [Jekyll](https://jekyllrb.com/) at the moment to generate my static site/content. I've experimented with other _Static Site Generators_ like [JBake](https://jbake.org/)
 and [Hugo](https://gohugo.io/), but I decided to give Jekyll and the [Liquid](https://shopify.github.io/liquid/) template engine a shot.  I'm a big fan of Hugo, but I like to try out new things, and Jekyll was next on my list.  
 
 #### My Old Site (Not Active Anymore)  
@@ -25,4 +25,4 @@ my static site content instead of trying to host it myself from a [Spring Boot](
 #### The Journey Ahead
 
 Since I come from a stronger C and systems programming background, I'm looking forward
-to the web development learning experience. Good things to come. 
+to the web development learning experience. Good things to come.
