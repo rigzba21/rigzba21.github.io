@@ -17,12 +17,12 @@ categories: jekyll update
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>io.test</groupId>
-  <artifactId>test-app</artifactId>
-  <version>2.0</version>
+  <groupId>org.sample-jbake-spring-boot</groupId>
+  <artifactId>jbake-spring-boot</artifactId>
+  <version>1.0</version>
   <packaging>jar</packaging>
 
-  <name>test-app</name>
+  <name>jbake-spring-boot-example</name>
   <!-- FIXME change it to the project's website -->
   <!-- <url>http://www.example.com</url> -->
   <parent>
@@ -186,6 +186,8 @@ categories: jekyll update
             <phase>generate-resources</phase>
             <goals>
               <goal>generate</goal>
+              <!-- <goal>seed</goal> -->
+              <!-- <goal>inline</goal> -->
             </goals>
           </execution>
         </executions>
@@ -210,3 +212,5 @@ categories: jekyll update
   </build>
 </project>
 {% endhighlight %}
+
+#### A Note On the Commented-Out Goals: ```seed``` and ```inline```
