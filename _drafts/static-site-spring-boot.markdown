@@ -35,7 +35,8 @@ A ready-to-go Spring-Boot application can be generated using [Spring Initializr]
 ##### Generating A Spring-Boot App With Spring Initializr
 [Spring Initializr](https://start.spring.io/) provides an easy way to generate the boilerplate needed to spin up a quick Spring-Boot application.  For this project, I left the _Group_ ```com.example``` and changed the _Artifact_ name to ```jbake-spring-boot-app```.  Once you click _Generate Project_, a ```.zip``` folder is downloaded containing the basic Spring-Boot project structure and starter ```pom.xml```.
 
-#### Adding In _JBake_, _Asciidoctor_, And _Groovy Templates_ To The ```pom.xml```
+#### Adding In _JBake_, _Asciidoctor_, And _Groovy Templates_  Dependencies To The ```pom.xml```
+Modify the existing ```pom.xml``` file to include the necessary dependency entries to get the project up and running. See below:
 
 {%highlight xml %}
 <?xml version="1.0" encoding="UTF-8"?>
@@ -75,6 +76,34 @@ A ready-to-go Spring-Boot application can be generated using [Spring Initializr]
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+      <groupId>org.jbake</groupId>
+      <artifactId>jbake-maven-plugin</artifactId>
+      <version>0.3.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jbake</groupId>
+      <artifactId>jbake-core</artifactId>
+      <version>2.6.1</version>
+    </dependency>
+
+    <dependency>
+    	<groupId>org.asciidoctor</groupId>
+    	<artifactId>asciidoctorj</artifactId>
+    	<version>1.5.6</version>
+    </dependency>
+    <dependency>
+    	<groupId>org.asciidoctor</groupId>
+    	<artifactId>asciidoctor-maven-plugin</artifactId>
+    	<version>1.5.6</version>
+    </dependency>
+
+  <dependency>
+      <groupId>org.codehaus.groovy</groupId>
+      <artifactId>groovy-templates</artifactId>
+      <version>2.5.0</version>
+    </dependency>
 	</dependencies>
 
 	<build>
@@ -85,8 +114,55 @@ A ready-to-go Spring-Boot application can be generated using [Spring Initializr]
 			</plugin>
 		</plugins>
 	</build>
-  
+
 </project>
+{% endhighlight %}
+
+Now open up the terminal and navigate to the root directory of the Spring-Boot project and run: ```mvn compile```.
+
+#### Configuring the _JBake Plugin_
+Since we're going to configure the ```pom.xml``` _JBake Plugin_, we can generate the static-site content
+as part of the Maven build process.
+
+Configure the Spring-Boot ```<build></build>``` section to look like the following:
+
+{%highlight xml %}
+<build>
+	<plugins>
+		<plugin>
+			<groupId>org.jbake</groupId>
+			<artifactId>jbake-maven-plugin</artifactId>
+			<version>0.3.1</version>
+			<executions>
+				<execution>
+					<id>default-generate</id>
+					<phase>generate-resources</phase>
+					<goals>
+						<goal>generate</goal>
+						<goal>seed</goal>
+						<goal>inline</goal>
+					</goals>
+				</execution>
+			</executions>
+			<configuration>
+				<inputDirectory>${project.basedir}/src/main/resources/static</inputDirectory>
+				<outputDirectory>${project.build.directory}/classes/static</outputDirectory>
+			</configuration>
+			<dependencies>
+				<dependency>
+					<groupId>org.asciidoctor</groupId>
+					<artifactId>asciidoctorj</artifactId>
+					<version>1.5.6</version>
+				</dependency>
+				<dependency>
+						<groupId>org.codehaus.groovy</groupId>
+						<artifactId>groovy-templates</artifactId>
+						<version>2.5.0</version>
+					</dependency>
+			</dependencies>
+		</plugin>
+	</plugins>
+</build>
 {% endhighlight %}
 
 ### Starter ```pom.xml```
