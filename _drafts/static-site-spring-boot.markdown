@@ -319,6 +319,7 @@ Configure the Spring-Boot ```<build></build>``` section to look like the followi
         <configuration>
           <source>${java.version}</source>
           <target>${java.version}</target>
+				</configuration>	
       </plugin>
 
       <plugin>
