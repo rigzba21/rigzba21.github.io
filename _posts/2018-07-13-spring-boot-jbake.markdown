@@ -120,7 +120,7 @@ Modify the existing ```pom.xml``` file to include the necessary dependency entri
 {% endhighlight %}
 
 #### Configuring the _JBake Plugin_
-Since we're going to configure the ```pom.xml``` _JBake Plugin_, we will be able to generate the static-site content
+Since we're going to configure the ```pom.xml```'s JBake Plugin', we will be able to generate the static-site content
 as part of the Maven build process.
 
 Configure the Spring-Boot ```<build></build>``` section to look like the following:
