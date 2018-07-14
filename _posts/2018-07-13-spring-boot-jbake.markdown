@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Serving a JBake Static-Site with Spring-Boot"
-date:   2018-07-03 20:26:48 -0400
+date:   2018-07-13 20:26:48 -0400
 categories: jekyll update
 ---
 
