@@ -33,7 +33,7 @@ Once SDKMAN! is installed, all of the tools can be installed through the command
 
 A ready-to-go Spring-Boot application can be generated using [Spring Initializr](https://start.spring.io/), while _Asciidoctor_ and _Groovy Templates_ will be installed as dependencies in the Spring-Boot project's ```pom.xml```.
 
-##### Generating A Spring-Boot App With Spring Initializr
+#### Generating A Spring-Boot App With Spring Initializr
 [Spring Initializr](https://start.spring.io/) provides an easy way to generate the boilerplate needed to spin up a quick Spring-Boot application.  For this project, I left the _Group_ ```com.example``` and changed the _Artifact_ name to ```jbake-spring-boot-app```.  Once you click _Generate Project_, a ```.zip``` folder is downloaded containing the basic Spring-Boot project structure and starter ```pom.xml```.
 
 #### Adding In _JBake_, _Asciidoctor_, And _Groovy Templates_  Dependencies To The ```pom.xml```
