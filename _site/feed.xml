@@ -1,4 +1,202 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-07-03T12:40:25-04:00</updated><id>http://localhost:4000/</id><title type="html">Random Stuff and HOWTOs [RndSHT]</title><subtitle>[RndSHT] is a blog/collection of random things like quick-start guides, tutorials, or pretty much whatever I feel like writing about.</subtitle><entry><title type="html">First Post</title><link href="http://localhost:4000/jekyll/update/2018/06/20/first-post.html" rel="alternate" type="text/html" title="First Post" /><published>2018-06-20T20:26:48-04:00</published><updated>2018-06-20T20:26:48-04:00</updated><id>http://localhost:4000/jekyll/update/2018/06/20/first-post</id><content type="html" xml:base="http://localhost:4000/jekyll/update/2018/06/20/first-post.html">&lt;h2 id=&quot;greetings&quot;&gt;Greetings&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-08-24T17:10:27-04:00</updated><id>http://localhost:4000/</id><title type="html">Random Stuff and HOWTOs [RndSHT]</title><subtitle>[RndSHT] is a blog/collection of random things like quick-start guides, tutorials, or pretty much whatever I feel like writing about.</subtitle><entry><title type="html">Serving a JBake Static-Site with Spring-Boot</title><link href="http://localhost:4000/jekyll/update/2018/07/13/spring-boot-jbake.html" rel="alternate" type="text/html" title="Serving a JBake Static-Site with Spring-Boot" /><published>2018-07-13T20:26:48-04:00</published><updated>2018-07-13T20:26:48-04:00</updated><id>http://localhost:4000/jekyll/update/2018/07/13/spring-boot-jbake</id><content type="html" xml:base="http://localhost:4000/jekyll/update/2018/07/13/spring-boot-jbake.html">&lt;h2 id=&quot;why-serve-static-content-from-a-spring-boot-app&quot;&gt;Why Serve Static Content From A Spring-Boot App?&lt;/h2&gt;
+&lt;p&gt;While deploying static-site content is easier through a content delivery network (CDN) such as &lt;a href=&quot;https://pages.github.com/&quot;&gt;GitHub Pages&lt;/a&gt; or &lt;a href=&quot;https://surge.sh/&quot;&gt;surge&lt;/a&gt;, I wanted to take a crack at hosting it from
+my own webapp.&lt;/p&gt;
+
+&lt;p&gt;I decided to take a static-site generated with &lt;a href=&quot;https://jbake.org/&quot;&gt;JBake&lt;/a&gt; and run it from a &lt;a href=&quot;https://spring.io/projects/spring-boot&quot;&gt;Spring-Boot&lt;/a&gt; application. JBake and Spring-Boot make an ideal combination For
+three reasons:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;They both run on the Java Virtual Machine (JVM).&lt;/li&gt;
+  &lt;li&gt;Since they both run on the JVM, it’s even easier to incorporate either &lt;a href=&quot;https://maven.apache.org/&quot;&gt;Maven&lt;/a&gt; or &lt;a href=&quot;https://gradle.org/&quot;&gt;Gradle&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://jbake.org/docs/2.6.1/#build_tool_integration&quot;&gt;JBake&lt;/a&gt; has &lt;em&gt;Maven/Gradle&lt;/em&gt; plugins for the build process.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;project-setup&quot;&gt;Project Setup&lt;/h2&gt;
+&lt;p&gt;For this particular HOWTO guide, I’m using the following tools:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://maven.apache.org/&quot;&gt;Maven&lt;/a&gt; as the build tool&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://asciidoctor.org/&quot;&gt;Asciidoctor&lt;/a&gt; to parse &lt;code class=&quot;highlighter-rouge&quot;&gt;asciidoc&lt;/code&gt; content&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://docs.groovy-lang.org/latest/html/documentation/template-engines.html&quot;&gt;Groovy Template Engine&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;installation-instructions&quot;&gt;Installation Instructions&lt;/h3&gt;
+&lt;p&gt;While each tool has their own installation instructions, the quickest/easiest way is to use &lt;a href=&quot;https://sdkman.io/&quot;&gt;SDKMAN!&lt;/a&gt;. Check out the &lt;a href=&quot;https://sdkman.io/install&quot;&gt;SDMAN! Install Docs&lt;/a&gt; for installation instructions for your specific platform.&lt;/p&gt;
+
+&lt;h4 id=&quot;installing-tools-with-sdkman&quot;&gt;Installing Tools With SDKMAN!&lt;/h4&gt;
+&lt;p&gt;Once SDKMAN! is installed, all of the tools can be installed through the command-line-interface (CLI).&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Java 8 (OpenJDK): &lt;code class=&quot;highlighter-rouge&quot;&gt;sdk install java&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;Maven: &lt;code class=&quot;highlighter-rouge&quot;&gt;sdk install maven&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;JBake &lt;code class=&quot;highlighter-rouge&quot;&gt;sdk install jbake&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;A ready-to-go Spring-Boot application can be generated using &lt;a href=&quot;https://start.spring.io/&quot;&gt;Spring Initializr&lt;/a&gt;, while &lt;em&gt;Asciidoctor&lt;/em&gt; and &lt;em&gt;Groovy Templates&lt;/em&gt; will be installed as dependencies in the Spring-Boot project’s &lt;code class=&quot;highlighter-rouge&quot;&gt;pom.xml&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h4 id=&quot;generating-a-spring-boot-app-with-spring-initializr&quot;&gt;Generating A Spring-Boot App With Spring Initializr&lt;/h4&gt;
+&lt;p&gt;&lt;a href=&quot;https://start.spring.io/&quot;&gt;Spring Initializr&lt;/a&gt; provides an easy way to generate the boilerplate needed to spin up a quick Spring-Boot application.  For this project, I left the &lt;em&gt;Group&lt;/em&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;com.example&lt;/code&gt; and changed the &lt;em&gt;Artifact&lt;/em&gt; name to &lt;code class=&quot;highlighter-rouge&quot;&gt;jbake-spring-boot-app&lt;/code&gt;.  Once you click &lt;em&gt;Generate Project&lt;/em&gt;, a &lt;code class=&quot;highlighter-rouge&quot;&gt;.zip&lt;/code&gt; folder is downloaded containing the basic Spring-Boot project structure and starter &lt;code class=&quot;highlighter-rouge&quot;&gt;pom.xml&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h4 id=&quot;adding-in-jbake-asciidoctor-and-groovy-templates--dependencies-to-the-pomxml&quot;&gt;Adding In &lt;em&gt;JBake&lt;/em&gt;, &lt;em&gt;Asciidoctor&lt;/em&gt;, And &lt;em&gt;Groovy Templates&lt;/em&gt;  Dependencies To The &lt;code class=&quot;highlighter-rouge&quot;&gt;pom.xml&lt;/code&gt;&lt;/h4&gt;
+&lt;p&gt;Modify the existing &lt;code class=&quot;highlighter-rouge&quot;&gt;pom.xml&lt;/code&gt; file to include the necessary dependency entries to get the project up and running. See below:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-xml&quot; data-lang=&quot;xml&quot;&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;project&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;xmlns=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://maven.apache.org/POM/4.0.0&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;xmlns:xsi=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&lt;/span&gt;
+	&lt;span class=&quot;na&quot;&gt;xsi:schemaLocation=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;modelVersion&amp;gt;&lt;/span&gt;4.0.0&lt;span class=&quot;nt&quot;&gt;&amp;lt;/modelVersion&amp;gt;&lt;/span&gt;
+
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;com.example&lt;span class=&quot;nt&quot;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;jbake-spring-boot-app&lt;span class=&quot;nt&quot;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;0.0.1-SNAPSHOT&lt;span class=&quot;nt&quot;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;packaging&amp;gt;&lt;/span&gt;jar&lt;span class=&quot;nt&quot;&gt;&amp;lt;/packaging&amp;gt;&lt;/span&gt;
+
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;name&amp;gt;&lt;/span&gt;jbake-spring-boot-app&lt;span class=&quot;nt&quot;&gt;&amp;lt;/name&amp;gt;&lt;/span&gt;
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;description&amp;gt;&lt;/span&gt;Demo project for Spring Boot&lt;span class=&quot;nt&quot;&gt;&amp;lt;/description&amp;gt;&lt;/span&gt;
+
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;parent&amp;gt;&lt;/span&gt;
+		&lt;span class=&quot;nt&quot;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.springframework.boot&lt;span class=&quot;nt&quot;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+		&lt;span class=&quot;nt&quot;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;spring-boot-starter-parent&lt;span class=&quot;nt&quot;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+		&lt;span class=&quot;nt&quot;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;2.0.3.RELEASE&lt;span class=&quot;nt&quot;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
+		&lt;span class=&quot;nt&quot;&gt;&amp;lt;relativePath/&amp;gt;&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;&amp;lt;!-- lookup parent from repository --&amp;gt;&lt;/span&gt;
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;/parent&amp;gt;&lt;/span&gt;
+
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;properties&amp;gt;&lt;/span&gt;
+		&lt;span class=&quot;nt&quot;&gt;&amp;lt;project.build.sourceEncoding&amp;gt;&lt;/span&gt;UTF-8&lt;span class=&quot;nt&quot;&gt;&amp;lt;/project.build.sourceEncoding&amp;gt;&lt;/span&gt;
+		&lt;span class=&quot;nt&quot;&gt;&amp;lt;project.reporting.outputEncoding&amp;gt;&lt;/span&gt;UTF-8&lt;span class=&quot;nt&quot;&gt;&amp;lt;/project.reporting.outputEncoding&amp;gt;&lt;/span&gt;
+		&lt;span class=&quot;nt&quot;&gt;&amp;lt;java.version&amp;gt;&lt;/span&gt;1.8&lt;span class=&quot;nt&quot;&gt;&amp;lt;/java.version&amp;gt;&lt;/span&gt;
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;/properties&amp;gt;&lt;/span&gt;
+
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;dependencies&amp;gt;&lt;/span&gt;
+		&lt;span class=&quot;nt&quot;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
+			&lt;span class=&quot;nt&quot;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.springframework.boot&lt;span class=&quot;nt&quot;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+			&lt;span class=&quot;nt&quot;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;spring-boot-starter&lt;span class=&quot;nt&quot;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+		&lt;span class=&quot;nt&quot;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
+
+		&lt;span class=&quot;nt&quot;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
+			&lt;span class=&quot;nt&quot;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.springframework.boot&lt;span class=&quot;nt&quot;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+			&lt;span class=&quot;nt&quot;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;spring-boot-starter-test&lt;span class=&quot;nt&quot;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+			&lt;span class=&quot;nt&quot;&gt;&amp;lt;scope&amp;gt;&lt;/span&gt;test&lt;span class=&quot;nt&quot;&gt;&amp;lt;/scope&amp;gt;&lt;/span&gt;
+		&lt;span class=&quot;nt&quot;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
+
+		&lt;span class=&quot;nt&quot;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.jbake&lt;span class=&quot;nt&quot;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;jbake-maven-plugin&lt;span class=&quot;nt&quot;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;0.3.1&lt;span class=&quot;nt&quot;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.jbake&lt;span class=&quot;nt&quot;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;jbake-core&lt;span class=&quot;nt&quot;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;2.6.1&lt;span class=&quot;nt&quot;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
+
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
+    	&lt;span class=&quot;nt&quot;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.asciidoctor&lt;span class=&quot;nt&quot;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+    	&lt;span class=&quot;nt&quot;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;asciidoctorj&lt;span class=&quot;nt&quot;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+    	&lt;span class=&quot;nt&quot;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;1.5.6&lt;span class=&quot;nt&quot;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
+    	&lt;span class=&quot;nt&quot;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.asciidoctor&lt;span class=&quot;nt&quot;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+    	&lt;span class=&quot;nt&quot;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;asciidoctor-maven-plugin&lt;span class=&quot;nt&quot;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+    	&lt;span class=&quot;nt&quot;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;1.5.6&lt;span class=&quot;nt&quot;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
+
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.codehaus.groovy&lt;span class=&quot;nt&quot;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;groovy-templates&lt;span class=&quot;nt&quot;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;2.5.0&lt;span class=&quot;nt&quot;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;/dependencies&amp;gt;&lt;/span&gt;
+
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;build&amp;gt;&lt;/span&gt;
+		&lt;span class=&quot;nt&quot;&gt;&amp;lt;plugins&amp;gt;&lt;/span&gt;
+			&lt;span class=&quot;nt&quot;&gt;&amp;lt;plugin&amp;gt;&lt;/span&gt;
+				&lt;span class=&quot;nt&quot;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.springframework.boot&lt;span class=&quot;nt&quot;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+				&lt;span class=&quot;nt&quot;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;spring-boot-maven-plugin&lt;span class=&quot;nt&quot;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+			&lt;span class=&quot;nt&quot;&gt;&amp;lt;/plugin&amp;gt;&lt;/span&gt;
+		&lt;span class=&quot;nt&quot;&gt;&amp;lt;/plugins&amp;gt;&lt;/span&gt;
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;/build&amp;gt;&lt;/span&gt;
+
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/project&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h4 id=&quot;configuring-the-jbake-plugin&quot;&gt;Configuring the &lt;em&gt;JBake Plugin&lt;/em&gt;&lt;/h4&gt;
+&lt;p&gt;Since we’re going to configure the &lt;code class=&quot;highlighter-rouge&quot;&gt;pom.xml&lt;/code&gt;’s JBake Plugin’, we will be able to generate the static-site content
+as part of the Maven build process.&lt;/p&gt;
+
+&lt;p&gt;Configure the Spring-Boot &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;build&amp;gt;&amp;lt;/build&amp;gt;&lt;/code&gt; section to look like the following:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-xml&quot; data-lang=&quot;xml&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;build&amp;gt;&lt;/span&gt;
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;plugins&amp;gt;&lt;/span&gt;
+		&lt;span class=&quot;nt&quot;&gt;&amp;lt;plugin&amp;gt;&lt;/span&gt;
+			&lt;span class=&quot;nt&quot;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.springframework.boot&lt;span class=&quot;nt&quot;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+			&lt;span class=&quot;nt&quot;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;spring-boot-maven-plugin&lt;span class=&quot;nt&quot;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+		&lt;span class=&quot;nt&quot;&gt;&amp;lt;/plugin&amp;gt;&lt;/span&gt;
+		&lt;span class=&quot;nt&quot;&gt;&amp;lt;plugin&amp;gt;&lt;/span&gt;
+			&lt;span class=&quot;nt&quot;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.jbake&lt;span class=&quot;nt&quot;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+			&lt;span class=&quot;nt&quot;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;jbake-maven-plugin&lt;span class=&quot;nt&quot;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+			&lt;span class=&quot;nt&quot;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;0.3.1&lt;span class=&quot;nt&quot;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
+			&lt;span class=&quot;nt&quot;&gt;&amp;lt;executions&amp;gt;&lt;/span&gt;
+				&lt;span class=&quot;nt&quot;&gt;&amp;lt;execution&amp;gt;&lt;/span&gt;
+					&lt;span class=&quot;nt&quot;&gt;&amp;lt;id&amp;gt;&lt;/span&gt;default-generate&lt;span class=&quot;nt&quot;&gt;&amp;lt;/id&amp;gt;&lt;/span&gt;
+					&lt;span class=&quot;nt&quot;&gt;&amp;lt;phase&amp;gt;&lt;/span&gt;generate-resources&lt;span class=&quot;nt&quot;&gt;&amp;lt;/phase&amp;gt;&lt;/span&gt;
+					&lt;span class=&quot;nt&quot;&gt;&amp;lt;goals&amp;gt;&lt;/span&gt;
+					&lt;span class=&quot;c&quot;&gt;&amp;lt;!--&amp;lt;goal&amp;gt;generate&amp;lt;/goal&amp;gt;
+					&amp;lt;goal&amp;gt;inline&amp;lt;/goal&amp;gt; --&amp;gt;&lt;/span&gt;
+					&lt;span class=&quot;nt&quot;&gt;&amp;lt;/goals&amp;gt;&lt;/span&gt;
+				&lt;span class=&quot;nt&quot;&gt;&amp;lt;/execution&amp;gt;&lt;/span&gt;
+			&lt;span class=&quot;nt&quot;&gt;&amp;lt;/executions&amp;gt;&lt;/span&gt;
+			&lt;span class=&quot;nt&quot;&gt;&amp;lt;configuration&amp;gt;&lt;/span&gt;
+				&lt;span class=&quot;nt&quot;&gt;&amp;lt;inputDirectory&amp;gt;&lt;/span&gt;${project.basedir}/src/main/resources/static&lt;span class=&quot;nt&quot;&gt;&amp;lt;/inputDirectory&amp;gt;&lt;/span&gt;
+				&lt;span class=&quot;nt&quot;&gt;&amp;lt;outputDirectory&amp;gt;&lt;/span&gt;${project.build.directory}/classes/static&lt;span class=&quot;nt&quot;&gt;&amp;lt;/outputDirectory&amp;gt;&lt;/span&gt;
+			&lt;span class=&quot;nt&quot;&gt;&amp;lt;/configuration&amp;gt;&lt;/span&gt;
+			&lt;span class=&quot;nt&quot;&gt;&amp;lt;dependencies&amp;gt;&lt;/span&gt;
+				&lt;span class=&quot;nt&quot;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
+					&lt;span class=&quot;nt&quot;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.asciidoctor&lt;span class=&quot;nt&quot;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+					&lt;span class=&quot;nt&quot;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;asciidoctorj&lt;span class=&quot;nt&quot;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+					&lt;span class=&quot;nt&quot;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;1.5.6&lt;span class=&quot;nt&quot;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
+				&lt;span class=&quot;nt&quot;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
+				&lt;span class=&quot;nt&quot;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
+						&lt;span class=&quot;nt&quot;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.codehaus.groovy&lt;span class=&quot;nt&quot;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+						&lt;span class=&quot;nt&quot;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;groovy-templates&lt;span class=&quot;nt&quot;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+						&lt;span class=&quot;nt&quot;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;2.5.0&lt;span class=&quot;nt&quot;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
+					&lt;span class=&quot;nt&quot;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
+			&lt;span class=&quot;nt&quot;&gt;&amp;lt;/dependencies&amp;gt;&lt;/span&gt;
+		&lt;span class=&quot;nt&quot;&gt;&amp;lt;/plugin&amp;gt;&lt;/span&gt;
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;/plugins&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/build&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Next create a folder according to the directory structure outlined in &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;inputDirectory&amp;gt;&amp;lt;/inputDirectory&amp;gt;&lt;/code&gt;, which in this case is &lt;code class=&quot;highlighter-rouge&quot;&gt;src/main/resources/static&lt;/code&gt;. This is where the &lt;code class=&quot;highlighter-rouge&quot;&gt;asciidoc&lt;/code&gt; content will go.&lt;/p&gt;
+
+&lt;h4 id=&quot;installing-maven-dependencies&quot;&gt;Installing Maven Dependencies&lt;/h4&gt;
+&lt;p&gt;Run: &lt;code class=&quot;highlighter-rouge&quot;&gt;mvn install&lt;/code&gt; to install the Maven dependencies outlined in the &lt;code class=&quot;highlighter-rouge&quot;&gt;pom.xml&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h4 id=&quot;seeding-the-default-jbake-theme&quot;&gt;Seeding The Default JBake Theme&lt;/h4&gt;
+&lt;p&gt;Now change to the &lt;code class=&quot;highlighter-rouge&quot;&gt;static&lt;/code&gt; directory, and run the JBake command
+&lt;code class=&quot;highlighter-rouge&quot;&gt;jbake -i -t groovy&lt;/code&gt; to initialize the boilerplate code for a static-site using &lt;em&gt;Groovy Templates&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;This will generate the appropriate JBake project structure, along with some example blog post content in the &lt;code class=&quot;highlighter-rouge&quot;&gt;content&lt;/code&gt; directory. Since we’re only working with &lt;code class=&quot;highlighter-rouge&quot;&gt;asciidoc&lt;/code&gt; files in this project, the newly generated &lt;code class=&quot;highlighter-rouge&quot;&gt;2013&lt;/code&gt; folder under the &lt;code class=&quot;highlighter-rouge&quot;&gt;src/main/resources/static/content/blog&lt;/code&gt; directory can be deleted.  It’s okay to leave it, the only thing is the non &lt;code class=&quot;highlighter-rouge&quot;&gt;asciidoc&lt;/code&gt; examples will not be parsed/rendered when JBake runs.&lt;/p&gt;
+
+&lt;h4 id=&quot;creating-a-test-blog-post&quot;&gt;Creating A Test Blog Post&lt;/h4&gt;
+&lt;p&gt;From the &lt;code class=&quot;highlighter-rouge&quot;&gt;content/blog&lt;/code&gt; directory, create an empty &lt;code class=&quot;highlighter-rouge&quot;&gt;asciidoc&lt;/code&gt; file such as &lt;code class=&quot;highlighter-rouge&quot;&gt;test-blog.asciidoc&lt;/code&gt;, and add the default JBake header:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;title=Test Post
+date=2018-07-13
+type=post
+tags=blog, asciidoc
+status=published
+~~~~~~
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Next remove the comments in  the &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;goals&amp;gt;&amp;lt;/goals&lt;/code&gt; section of the &lt;code class=&quot;highlighter-rouge&quot;&gt;pom.xml&lt;/code&gt; file like so:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;goal&amp;gt;generate&amp;lt;/goal&amp;gt;
+&amp;lt;goal&amp;gt;inline&amp;lt;/goal&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;generate&lt;/code&gt; goal simply builds the static-site content based on the &lt;code class=&quot;highlighter-rouge&quot;&gt;asciidoc&lt;/code&gt; files contained within the &lt;code class=&quot;highlighter-rouge&quot;&gt;content/blog&lt;/code&gt; directory, while the &lt;code class=&quot;highlighter-rouge&quot;&gt;inline&lt;/code&gt; goal spins up a local development web server for testing any changes.&lt;/p&gt;
+
+&lt;h4 id=&quot;running-the-application&quot;&gt;Running The Application&lt;/h4&gt;
+
+&lt;p&gt;Switch back to the root directory of the Maven project and test out the JBake plugin by running &lt;code class=&quot;highlighter-rouge&quot;&gt;mvn jbake:inline&lt;/code&gt;, which should start a local development server on port 8080. If everything works out, this should go right to the application’s landing page, which should list the newly rendered &lt;code class=&quot;highlighter-rouge&quot;&gt;test-blog.asciidoc&lt;/code&gt;.  Running &lt;code class=&quot;highlighter-rouge&quot;&gt;mvn spring-boot:run&lt;/code&gt; will achieve a similar result.&lt;/p&gt;
+
+&lt;p&gt;Now that the Spring-Boot/JBake application is up and running, we can host this on something like &lt;a href=&quot;https://heroku.com&quot;&gt;Heroku&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><summary type="html">Why Serve Static Content From A Spring-Boot App? While deploying static-site content is easier through a content delivery network (CDN) such as GitHub Pages or surge, I wanted to take a crack at hosting it from my own webapp.</summary></entry><entry><title type="html">First Post</title><link href="http://localhost:4000/jekyll/update/2018/06/20/first-post.html" rel="alternate" type="text/html" title="First Post" /><published>2018-06-20T20:26:48-04:00</published><updated>2018-06-20T20:26:48-04:00</updated><id>http://localhost:4000/jekyll/update/2018/06/20/first-post</id><content type="html" xml:base="http://localhost:4000/jekyll/update/2018/06/20/first-post.html">&lt;h2 id=&quot;greetings&quot;&gt;Greetings&lt;/h2&gt;
 
 &lt;p&gt;Welcome to the first post of my blog about random stuff. I don’t like to stick to one
 theme in particular, since I find a wide variety of topics/areas interesting.  Topics on this blog may
